@@ -19,7 +19,7 @@ class User(AbstractUser):
 
     class Meta:
         verbose_name = 'Kullanıcı'
-        verbose_name_plural = 'Tüm Kullanıcılar'
+        verbose_name_plural = 'Kullanıcılar'
 
 
 class City(Model):
@@ -59,8 +59,8 @@ class CompanyFeature(Model):
 
     class Meta:
         ordering = ('-id',)
-        verbose_name = 'Reklamveren Özelliği'
-        verbose_name_plural = 'Reklamveren Özellikleri'
+        verbose_name = 'Şirket Özelliği'
+        verbose_name_plural = 'Şirket Özellikleri'
 
     def __str__(self):
         return self.name
@@ -85,8 +85,64 @@ class Company(User):
     link_instagram = CharField(max_length=250, null=True, blank=True, verbose_name='Instagram Linki')
     link_twitter = CharField(max_length=250, null=True, blank=True, verbose_name='Twitter Linki')
     link_web = CharField(max_length=250, null=True, blank=True, verbose_name='Website Linki')
-    features = ManyToManyField('djangoecommerce_app.CompanyFeature', verbose_name='Reklamveren Şirket Özellikleri', blank=True)
+    features = ManyToManyField('djangoecommerce_app.CompanyFeature', verbose_name='Şirket Özellikleri', blank=True)
 
     class Meta:
-        verbose_name = 'Reklamveren'
-        verbose_name_plural = 'Reklamverenler'
+        verbose_name = 'Şirket'
+        verbose_name_plural = 'Şirketler'
+
+
+class ProductCategory(Model):
+    category = CharField(max_length=255, verbose_name='Ürün Kategorisi')
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = 'Ürün Kategorisi'
+        verbose_name_plural = 'Ürün Kategorileri'
+
+    def __str__(self):
+        return self.category
+
+
+class Brand(Model):
+    name = CharField(max_length=255, verbose_name='Ürün Markası')
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = 'Ürün Markası'
+        verbose_name_plural = 'Ürün Markaları'
+
+    def __str__(self):
+        return self.name
+
+
+class Product(Model):
+    name = CharField(max_length=255, verbose_name='Ürün Adı')
+    description = TextField(max_length=1000, verbose_name='Açıklama')
+    created_at = DateTimeField(auto_now_add=True, editable=False, blank=True, null=False,verbose_name='Oluşturma Tarihi')
+    category = ForeignKey('djangoecommerce_app.ProductCategory', blank=True, null=True, verbose_name='Ürün Tipi', on_delete=models.CASCADE)
+    owner = ForeignKey('djangoecommerce_app.User', related_name='owner',blank=False, null=False, verbose_name='Ürün Sahibi', on_delete=models.CASCADE)
+    brand = ForeignKey('djangoecommerce_app.Brand', related_name='brand',blank=False, null=False, verbose_name='Ürün Markası', on_delete=models.CASCADE)
+    thumbnail = ImageField(verbose_name='İsim', upload_to='images/product/')
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = 'Ürün'
+        verbose_name_plural = 'Ürünler'
+
+    def __str__(self):
+        return self.name
+
+
+class ProductImage(Model):
+    image = ImageField(verbose_name='İsim', upload_to='images/product/')
+    sofra = ForeignKey('djangoecommerce_app.Product', verbose_name='Sofra', null=True, blank=True, on_delete=models.CASCADE)
+    owner = ForeignKey('djangoecommerce_app.Company', verbose_name='Sahibi', null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('-pk',)
+        verbose_name = 'Ürün Resmi'
+        verbose_name_plural = 'Ürün Resimleri'
+
+    def __str__(self):
+        return self.image.name
