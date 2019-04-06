@@ -3,6 +3,13 @@ from django.db.models import Model,ForeignKey,CharField,DateTimeField,FloatField
 
 from django.contrib.auth.models import AbstractUser
 
+STARSTATUS = (
+    ('1', '1'),
+    ('2', '2'),
+    ('3', '3'),
+    ('4', '4'),
+    ('5', '5'),
+    )
 
 class User(AbstractUser):
     GENDERS = (
@@ -104,7 +111,20 @@ class ProductCategory(Model):
         return self.category
 
 
-class Brand(Model):
+class ProductSubCategory(Model):
+    owner = ForeignKey('djangoecommerce_app.ProductCategory', related_name='maincategory',blank=False, null=False, verbose_name='Ana Kategori', on_delete=models.CASCADE)
+    sub_category = CharField(max_length=255, verbose_name='Ürün Kategorisi')
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = 'Ürün Alt Kategorisi'
+        verbose_name_plural = 'Ürün Alt Kategorileri'
+
+    def __str__(self):
+        return self.category
+
+
+class ProductBrand(Model):
     name = CharField(max_length=255, verbose_name='Ürün Markası')
 
     class Meta:
@@ -122,7 +142,7 @@ class Product(Model):
     created_at = DateTimeField(auto_now_add=True, editable=False, blank=True, null=False,verbose_name='Oluşturma Tarihi')
     category = ForeignKey('djangoecommerce_app.ProductCategory', blank=True, null=True, verbose_name='Ürün Tipi', on_delete=models.CASCADE)
     owner = ForeignKey('djangoecommerce_app.User', related_name='owner',blank=False, null=False, verbose_name='Ürün Sahibi', on_delete=models.CASCADE)
-    brand = ForeignKey('djangoecommerce_app.Brand', related_name='brand',blank=False, null=False, verbose_name='Ürün Markası', on_delete=models.CASCADE)
+    brand = ForeignKey('djangoecommerce_app.ProductBrand', related_name='brand',blank=False, null=False, verbose_name='Ürün Markası', on_delete=models.CASCADE)
     thumbnail = ImageField(verbose_name='İsim', upload_to='images/product/')
 
     class Meta:
@@ -136,8 +156,21 @@ class Product(Model):
 
 class ProductImage(Model):
     image = ImageField(verbose_name='İsim', upload_to='images/product/')
-    sofra = ForeignKey('djangoecommerce_app.Product', verbose_name='Sofra', null=True, blank=True, on_delete=models.CASCADE)
+    product = ForeignKey('djangoecommerce_app.Product', verbose_name='Sofra', null=True, blank=True, on_delete=models.CASCADE)
     owner = ForeignKey('djangoecommerce_app.Company', verbose_name='Sahibi', null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('-pk',)
+        verbose_name = 'Ürün Resmi'
+        verbose_name_plural = 'Ürün Resimleri'
+
+    def __str__(self):
+        return self.image.name
+
+
+class ProductStar(Model):
+    product = ForeignKey('djangoecommerce_app.Product', verbose_name='Sofra', null=True, blank=True, on_delete=models.CASCADE)
+
 
     class Meta:
         ordering = ('-pk',)
