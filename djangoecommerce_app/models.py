@@ -1,4 +1,6 @@
 from django.db import models
+
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models import Model,ForeignKey,CharField,DateTimeField,FloatField,EmailField,ImageField,DateField,TextField, BooleanField,IntegerField,DecimalField,ManyToManyField
 
 from django.contrib.auth.models import AbstractUser
@@ -134,7 +136,7 @@ class Product(Model):
     description = TextField(max_length=1000, verbose_name='Açıklama')
     created_at = DateTimeField(auto_now_add=True, editable=False, blank=True, null=False,verbose_name='Oluşturma Tarihi')
     category = ForeignKey('djangoecommerce_app.ProductCategory', blank=True, null=True, verbose_name='Ürün Tipi', on_delete=models.CASCADE)
-    owner = ForeignKey('djangoecommerce_app.User', related_name='owner',blank=False, null=False, verbose_name='Ürün Sahibi', on_delete=models.CASCADE)
+    owner = ForeignKey('djangoecommerce_app.Company', related_name='owner',blank=False, null=False, verbose_name='Ürün Sahibi', on_delete=models.CASCADE)
     brand = ForeignKey('djangoecommerce_app.ProductBrand', related_name='brand',blank=False, null=False, verbose_name='Ürün Markası', on_delete=models.CASCADE)
     thumbnail = ImageField(verbose_name='İsim', upload_to='images/product/')
 
@@ -163,7 +165,7 @@ class ProductImage(Model):
 
 class ProductStar(Model):
     product = ForeignKey('djangoecommerce_app.Product', verbose_name='Sofra', null=True, blank=True, on_delete=models.CASCADE)
-
+    star = FloatField(validators=[MinValueValidator(0), MaxValueValidator(50)],verbose_name='Yıldız')
 
     class Meta:
         ordering = ('-pk',)
@@ -174,3 +176,103 @@ class ProductStar(Model):
         return self.image.name
         verbose_name = 'Reklamveren'
         verbose_name_plural = 'Reklamverenler'
+
+
+class Coupon(Model):
+    code = CharField(max_length=24, verbose_name='Kupon Kodu')
+    discount_rate = FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)],verbose_name='İndirim Oranı (Yüzde)')
+    guests = ManyToManyField('djangoecommerce_app.User', blank=True, verbose_name='Kullananlar', related_name='guests')
+    companies = ManyToManyField('djangoecommerce_app.Company', blank=True, verbose_name='Kullanılabilir Restoranlar',related_name='companies')
+    is_active = BooleanField(default=False, verbose_name='Aktif')
+    created = DateTimeField(auto_now_add=True, editable=False, verbose_name='Yaratılma Tarihi')
+    limit = IntegerField(default=0, verbose_name='Kullanım Adedi')
+
+    def __str__(self):
+        return self.code
+
+    def is_exceed(self):
+        if self.guests.count() < self.limit:
+            return False
+        return True
+
+    class Meta:
+        ordering = ('-created',)
+        verbose_name = 'Kupon'
+        verbose_name_plural = 'Kuponlar'
+
+
+
+class Card(Model):
+    CARD_STATUS = (
+        ('DISAPPROVED', 'Onaylanmadı'),
+        ('APPROVED', 'Onaylandı'),
+        ('REFUNDED', 'Iade Edildi'),
+    )
+    owner = ForeignKey('djangoecommerce_app.User', verbose_name='Sahibi', null=True, blank=True, on_delete=models.CASCADE)
+    product = ForeignKey('djangoecommerce_app.Product', verbose_name='Ürün', null=True, blank=True, on_delete=models.CASCADE)
+    status = CharField(max_length=128, choices=CARD_STATUS, default='DISAPPROVED', blank=False, verbose_name='Durum')
+    transaction_time = DateTimeField(auto_now_add=True, verbose_name='Ödeme Tarihi')
+    transaction_total_amount = FloatField(verbose_name='Toplam Ödeme')
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = 'Sepet'
+        verbose_name_plural = 'Sepetler'
+
+    def __str__(self):
+        return self.id
+
+
+class Order(Model):
+    STATUS_TYPES = (
+        ('DISAPPROVED', 'Onaylanmadı'),
+        ('APPROVED', 'Onaylandı'),
+        ('REFUNDED', 'Iade Edildi'),
+    )
+    buyer = ForeignKey('djangoecommerce_app.User', verbose_name='Satın Alan', related_name='buyer', on_delete=models.CASCADE)
+    card = ManyToManyField('djangoecommerce_app.Card', verbose_name='Sepetteki Ürünler', related_name='card')
+    owner = ForeignKey('djangoecommerce_app.User', verbose_name='Sahibi', related_name='order_owner', on_delete=models.CASCADE)
+    coupon = ForeignKey('djangoecommerce_app.Coupon', null=True, blank=True, verbose_name='Kupon', on_delete=models.CASCADE)
+    transaction_id = CharField(max_length=128, verbose_name='Ödeme Numarası')
+    transaction_time = DateTimeField(auto_now_add=True, verbose_name='Ödeme Tarihi')
+    transaction_total_amount = FloatField(verbose_name='Toplam Ödeme')
+    status = CharField(max_length=128, choices=STATUS_TYPES, default='DISAPPROVED', blank=False, verbose_name='Durum')
+
+
+    class Meta:
+        ordering = ('-transaction_time',)
+        verbose_name = 'Ödeme'
+        verbose_name_plural = 'Ödemeler'
+
+    def __str__(self):
+        return self.transaction_id
+
+
+class OrderProductStatus(Model):
+    ORDER_STATUS_TYPES = (
+        ('EXPECTEDSHIPPED', 'Kargoya verilmesi bekleniyor.'),
+        ('INCARGO', 'Ürününüz kargoda.'),
+        ('DONE', 'Teslim edildi.'),
+    )
+    product = ForeignKey('djangoecommerce_app.Card', verbose_name='Ürün', blank=True, on_delete=models.CASCADE)
+    status = CharField(max_length=15, choices=ORDER_STATUS_TYPES, default='EXPECTEDSHIPPED', blank=False, verbose_name='Durum')
+
+    class Meta:
+        verbose_name = 'Kargo Durumu'
+        verbose_name_plural = 'Kargo Durumları'
+
+    def __str__(self):
+        return self.id
+
+
+class OrderProductComment(Model):
+    owner = ForeignKey('djangoecommerce_app.User', verbose_name='Yorum Yapan Kişi', related_name='comment_owner', on_delete=models.CASCADE)
+    product = ForeignKey('djangoecommerce_app.Card', verbose_name='Ürün', blank=True, on_delete=models.CASCADE)
+    comment = TextField(blank=False, null=False, verbose_name='Ürün Yorumu')
+
+    class Meta:
+        verbose_name = 'Ürün Yorumu'
+        verbose_name_plural = 'Ürün Yorumları'
+
+    def __str__(self):
+        return self.id
