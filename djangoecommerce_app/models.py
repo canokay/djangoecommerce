@@ -151,7 +151,7 @@ class Product(Model):
 
 class ProductImage(Model):
     image = ImageField(verbose_name='İsim', upload_to='images/product/')
-    product = ForeignKey('djangoecommerce_app.Product', verbose_name='Sofra', null=True, blank=True, on_delete=models.CASCADE)
+    product = ForeignKey('djangoecommerce_app.Product', verbose_name='Ürün', null=True, blank=True, on_delete=models.CASCADE)
     owner = ForeignKey('djangoecommerce_app.Company', verbose_name='Sahibi', null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
@@ -164,13 +164,14 @@ class ProductImage(Model):
 
 
 class ProductStar(Model):
-    product = ForeignKey('djangoecommerce_app.Product', verbose_name='Sofra', null=True, blank=True, on_delete=models.CASCADE)
-    star = FloatField(validators=[MinValueValidator(0), MaxValueValidator(50)],verbose_name='Yıldız')
+    product = ForeignKey('djangoecommerce_app.Product', verbose_name='Ürün', null=True, blank=True, on_delete=models.CASCADE)
+    owner = ForeignKey('djangoecommerce_app.User', verbose_name='Yıldız Veren Kişi', null=True, blank=True, on_delete=models.CASCADE)
+    star = FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)],verbose_name='Yıldız')
 
     class Meta:
         ordering = ('-pk',)
-        verbose_name = 'Ürün Resmi'
-        verbose_name_plural = 'Ürün Resimleri'
+        verbose_name = 'Ürün Yıldızı'
+        verbose_name_plural = 'Ürün Yıldızları'
 
     def __str__(self):
         return self.image.name
