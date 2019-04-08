@@ -61,8 +61,8 @@ class CompanyFeature(Model):
 
     class Meta:
         ordering = ('-id',)
-        verbose_name = 'Reklamveren Özelliği'
-        verbose_name_plural = 'Reklamveren Özellikleri'
+        verbose_name = 'Şirket Özelliği'
+        verbose_name_plural = 'Şirket Özellikleri'
 
     def __str__(self):
         return self.name
@@ -135,7 +135,7 @@ class Product(Model):
     name = CharField(max_length=255, verbose_name='Ürün Adı')
     description = TextField(max_length=1000, verbose_name='Açıklama')
     created_at = DateTimeField(auto_now_add=True, editable=False, blank=True, null=False,verbose_name='Oluşturma Tarihi')
-    category = ForeignKey('djangoecommerce_app.ProductCategory', blank=True, null=True, verbose_name='Ürün Tipi', on_delete=models.CASCADE)
+    category = ForeignKey('djangoecommerce_app.ProductCategory', blank=True, null=True, verbose_name='Ürün Kategorisi', on_delete=models.CASCADE)
     owner = ForeignKey('djangoecommerce_app.Company', related_name='owner',blank=False, null=False, verbose_name='Ürün Sahibi', on_delete=models.CASCADE)
     brand = ForeignKey('djangoecommerce_app.ProductBrand', related_name='brand',blank=False, null=False, verbose_name='Ürün Markası', on_delete=models.CASCADE)
     thumbnail = ImageField(verbose_name='İsim', upload_to='images/product/')
@@ -220,8 +220,6 @@ class Card(Model):
         verbose_name = 'Sepet'
         verbose_name_plural = 'Sepetler'
 
-    def __str__(self):
-        return self.id
 
 
 class Order(Model):
@@ -232,7 +230,7 @@ class Order(Model):
     )
     buyer = ForeignKey('djangoecommerce_app.User', verbose_name='Satın Alan', related_name='buyer', on_delete=models.CASCADE)
     card = ManyToManyField('djangoecommerce_app.Card', verbose_name='Sepetteki Ürünler', related_name='card')
-    owner = ForeignKey('djangoecommerce_app.User', verbose_name='Sahibi', related_name='order_owner', on_delete=models.CASCADE)
+    owner = ForeignKey('djangoecommerce_app.Company', verbose_name='Ürün Sahip Firma', related_name='order_owner', on_delete=models.CASCADE)
     coupon = ForeignKey('djangoecommerce_app.Coupon', null=True, blank=True, verbose_name='Kupon', on_delete=models.CASCADE)
     transaction_id = CharField(max_length=128, verbose_name='Ödeme Numarası')
     transaction_time = DateTimeField(auto_now_add=True, verbose_name='Ödeme Tarihi')
@@ -242,8 +240,8 @@ class Order(Model):
 
     class Meta:
         ordering = ('-transaction_time',)
-        verbose_name = 'Ödeme'
-        verbose_name_plural = 'Ödemeler'
+        verbose_name = 'Satın Alım'
+        verbose_name_plural = 'Satın Alımlar'
 
     def __str__(self):
         return self.transaction_id
