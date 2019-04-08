@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^',  include("djangoecommerce_web.urls")),
     url(r'^musteri/', include("djangoecommerce_customer.urls")),
     url(r'^sirket/', include("djangoecommerce_company.urls")),
+    url(r'^api/', include("djangoecommerce_app.urls")),
 ]
