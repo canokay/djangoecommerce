@@ -8,4 +8,9 @@ from djangoecommerce_app.models import Product
 class ProductDetailSerializer(ModelSerializer):
     class Meta:
         model = Product
-        fields = ['__all__']
+        fields = ['id',
+                  'name',
+                  'description',
+                  'thumbnail',
+                  'category',
+                ]
