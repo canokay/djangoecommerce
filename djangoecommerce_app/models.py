@@ -26,7 +26,7 @@ class User(AbstractUser):
 
     class Meta:
         verbose_name = 'Kullanıcı'
-        verbose_name_plural = 'Kullanıcılar'
+        verbose_name_plural = 'Tüm Kullanıcılar'
 
 
 class City(Model):
@@ -66,8 +66,8 @@ class CompanyFeature(Model):
 
     class Meta:
         ordering = ('-id',)
-        verbose_name = 'Şirket Özelliği'
-        verbose_name_plural = 'Şirket Özellikleri'
+        verbose_name = 'Reklamveren Özelliği'
+        verbose_name_plural = 'Reklamveren Özellikleri'
 
     def __str__(self):
         return self.name
@@ -92,9 +92,10 @@ class Company(User):
     link_instagram = CharField(max_length=250, null=True, blank=True, verbose_name='Instagram Linki')
     link_twitter = CharField(max_length=250, null=True, blank=True, verbose_name='Twitter Linki')
     link_web = CharField(max_length=250, null=True, blank=True, verbose_name='Website Linki')
-    features = ManyToManyField('djangoecommerce_app.CompanyFeature', verbose_name='Şirket Özellikleri', blank=True)
+    features = ManyToManyField('djangoecommerce_app.CompanyFeature', verbose_name='Reklamveren Şirket Özellikleri', blank=True)
 
     class Meta:
+<<<<<<< HEAD
         verbose_name = 'Şirket'
         verbose_name_plural = 'Şirketler'
 
@@ -179,3 +180,7 @@ class ProductStar(Model):
 
     def __str__(self):
         return self.image.name
+=======
+        verbose_name = 'Reklamveren'
+        verbose_name_plural = 'Reklamverenler'
+>>>>>>> parent of f7103d7... project model added.
