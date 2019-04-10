@@ -133,12 +133,12 @@ class ProductBrand(Model):
 
 class Product(Model):
     name = CharField(max_length=255, verbose_name='Ürün Adı')
-    description = TextField(max_length=1000, verbose_name='Açıklama')
-    created_at = DateTimeField(auto_now_add=True, editable=False, blank=True, null=False,verbose_name='Oluşturma Tarihi')
+    description = TextField(max_length=1000, blank=True, null=True, verbose_name='Açıklama')
+    created_at = DateTimeField(auto_now_add=True, editable=False, verbose_name='Oluşturma Tarihi')
     category = ForeignKey('djangoecommerce_app.ProductCategory', blank=True, null=True, verbose_name='Ürün Kategorisi', on_delete=models.CASCADE)
     owner = ForeignKey('djangoecommerce_app.Company', related_name='owner',blank=False, null=False, verbose_name='Ürün Sahibi', on_delete=models.CASCADE)
-    brand = ForeignKey('djangoecommerce_app.ProductBrand', related_name='brand',blank=False, null=False, verbose_name='Ürün Markası', on_delete=models.CASCADE)
-    thumbnail = ImageField(verbose_name='İsim', upload_to='images/product/')
+    brand = ForeignKey('djangoecommerce_app.ProductBrand', related_name='brand',blank=True, null=True, verbose_name='Ürün Markası', on_delete=models.CASCADE)
+    thumbnail = ImageField(verbose_name='Resimi', upload_to='images/product/', blank=True, null=True)
 
     class Meta:
         ordering = ('-id',)
@@ -150,12 +150,11 @@ class Product(Model):
 
 
 class ProductImage(Model):
-    image = ImageField(verbose_name='İsim', upload_to='images/product/')
+    image = ImageField(verbose_name='Resim', upload_to='images/product/')
     product = ForeignKey('djangoecommerce_app.Product', verbose_name='Ürün', null=True, blank=True, on_delete=models.CASCADE)
-    owner = ForeignKey('djangoecommerce_app.Company', verbose_name='Sahibi', null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ('-pk',)
+        ordering = ('-id',)
         verbose_name = 'Ürün Resmi'
         verbose_name_plural = 'Ürün Resimleri'
 
@@ -169,7 +168,7 @@ class ProductStar(Model):
     star = FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)],verbose_name='Yıldız')
 
     class Meta:
-        ordering = ('-pk',)
+        ordering = ('-id',)
         verbose_name = 'Ürün Yıldızı'
         verbose_name_plural = 'Ürün Yıldızları'
 
