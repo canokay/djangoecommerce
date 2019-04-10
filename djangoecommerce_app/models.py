@@ -208,7 +208,7 @@ class Card(Model):
         ('APPROVED', 'Onaylandı'),
         ('REFUNDED', 'Iade Edildi'),
     )
-    owner = ForeignKey('djangoecommerce_app.User', verbose_name='Sahibi', null=True, blank=True, on_delete=models.CASCADE)
+    owner = ForeignKey('djangoecommerce_app.User', verbose_name='Satın Alan Kişi', null=True, blank=True, on_delete=models.CASCADE)
     product = ForeignKey('djangoecommerce_app.Product', verbose_name='Ürün', null=True, blank=True, on_delete=models.CASCADE)
     status = CharField(max_length=128, choices=CARD_STATUS, default='DISAPPROVED', blank=False, verbose_name='Durum')
     transaction_time = DateTimeField(auto_now_add=True, verbose_name='Ödeme Tarihi')

@@ -14,7 +14,6 @@ admin.site.register(ProductImage)
 admin.site.register(ProductBrand)
 admin.site.register(ProductStar)
 admin.site.register(Coupon)
-admin.site.register(Card)
 admin.site.register(Order)
 admin.site.register(OrderProductStatus)
 admin.site.register(OrderProductComment)
@@ -29,6 +28,17 @@ class ProductAdmin(ModelAdmin):
 
     class Meta:
         model = Product
+
+
+
+@admin.register(Card)
+class CardAdmin(ModelAdmin):
+    list_display = ["id", "owner","product","status","transaction_total_amount"]
+    list_display_links = ["id"]
+    list_editable = ["owner","product","status","transaction_total_amount"]
+
+    class Meta:
+        model = Card
 
 
 admin.site.unregister(Group)
