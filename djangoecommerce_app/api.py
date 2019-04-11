@@ -23,11 +23,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from djangoecommerce import settings
-from djangoecommerce_app.models import User, City, CompanyAddress, CompanyFeature, Company, ProductCategory,  Product, ProductImage, ProductBrand
+from djangoecommerce_app.models import User, City, CompanyAddress, CompanyFeature,Card,Order, Company, ProductCategory,  Product, ProductImage, ProductBrand
 
 from djangoecommerce_app.serializers.productlist import ProductListSerializer
 from djangoecommerce_app.serializers.productdetail import ProductDetailSerializer
-
+from djangoecommerce_app.serializers.cardlist import CardListSerializer
+from djangoecommerce_app.serializers.orderlist import OrderListSerializer
 
 
 
@@ -46,3 +47,20 @@ class ProductDetailView(ListAPIView):
     def get_queryset(self):
         id = self.kwargs['id']
         return Product.objects.filter(id=id)
+
+
+class CardListView(ListAPIView):
+    serializer_class = CardListSerializer
+
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Card.objects.filter(owner=id)
+
+
+
+class OrderListView(ListAPIView):
+    serializer_class = OrderListSerializer
+
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Order.objects.filter(buyer=id)
