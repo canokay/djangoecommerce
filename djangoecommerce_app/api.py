@@ -2,7 +2,7 @@ import datetime
 import uuid
 from urllib.parse import quote
 
-from django.contrib.auth.models import update_last_login
+from django.contrib.auth import login, authenticate, logout
 from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count
 from django.db.models import Q
@@ -15,6 +15,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets, permissions
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListAPIView
@@ -31,15 +32,12 @@ from djangoecommerce_app.serializers.cardlist import CardListSerializer
 from djangoecommerce_app.serializers.orderlist import OrderListSerializer
 from djangoecommerce_app.serializers.carddetail import CardDetailSerializer
 from djangoecommerce_app.serializers.orderdetail import OrderDetailSerializer
-
-
-
-
-
+from rest_framework.decorators import api_view
 
 
 class ProductListView(ListAPIView):
     serializer_class = ProductListSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         type = self.request.GET.get('type', None)
@@ -49,6 +47,7 @@ class ProductListView(ListAPIView):
 
 class ProductDetailView(ListAPIView):
     serializer_class = ProductDetailSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         id = self.kwargs['id']
@@ -57,6 +56,7 @@ class ProductDetailView(ListAPIView):
 
 class CardListView(ListAPIView):
     serializer_class = CardListSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         id = self.request.user.id
@@ -66,6 +66,7 @@ class CardListView(ListAPIView):
 
 class CardDetailView(ListAPIView):
     serializer_class = CardDetailSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         id = self.kwargs['id']
@@ -74,6 +75,7 @@ class CardDetailView(ListAPIView):
 
 class OrderListView(ListAPIView):
     serializer_class = OrderListSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         id = self.request.user.id
@@ -82,6 +84,7 @@ class OrderListView(ListAPIView):
 
 class OrderDetailView(ListAPIView):
     serializer_class = OrderDetailSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         id = self.kwargs['id']

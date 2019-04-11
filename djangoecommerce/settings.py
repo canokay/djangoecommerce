@@ -12,6 +12,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
+APPEND_SLASH=False
+
 ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
