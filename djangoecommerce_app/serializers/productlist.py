@@ -6,17 +6,18 @@ from rest_framework.serializers import ModelSerializer
 from djangoecommerce_app.models import Product, ProductCategory
 
 
-class CategorySerializer(ModelSerializer):
+class ProductCategorySerializer(ModelSerializer):
     class Meta:
         model = ProductCategory
-        fields = '__all__'
+        fields = ['id',
+                  'category',
+                ]
 
 
 class ProductListSerializer(ModelSerializer):
-    category = CategorySerializer()
+    category = ProductCategorySerializer()
     class Meta:
         model = Product
-        fields = '__all__'
         fields = ['id',
                   'name',
                   'description',
