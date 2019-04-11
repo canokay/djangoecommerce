@@ -29,6 +29,12 @@ from djangoecommerce_app.serializers.productlist import ProductListSerializer
 from djangoecommerce_app.serializers.productdetail import ProductDetailSerializer
 from djangoecommerce_app.serializers.cardlist import CardListSerializer
 from djangoecommerce_app.serializers.orderlist import OrderListSerializer
+from djangoecommerce_app.serializers.carddetail import CardDetailSerializer
+from djangoecommerce_app.serializers.orderdetail import OrderDetailSerializer
+
+
+
+
 
 
 
@@ -58,9 +64,25 @@ class CardListView(ListAPIView):
 
 
 
+class CardDetailView(ListAPIView):
+    serializer_class = CardDetailSerializer
+
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Card.objects.filter(id=id)
+
+
 class OrderListView(ListAPIView):
     serializer_class = OrderListSerializer
 
     def get_queryset(self):
         id = self.request.user.id
         return Order.objects.filter(buyer=id)
+
+
+class OrderDetailView(ListAPIView):
+    serializer_class = OrderDetailSerializer
+
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Order.objects.filter(id=id)
