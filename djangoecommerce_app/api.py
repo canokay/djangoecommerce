@@ -53,7 +53,7 @@ class CardListView(ListAPIView):
     serializer_class = CardListSerializer
 
     def get_queryset(self):
-        id = self.kwargs['id']
+        id = self.request.user.id
         return Card.objects.filter(owner=id)
 
 
@@ -62,5 +62,5 @@ class OrderListView(ListAPIView):
     serializer_class = OrderListSerializer
 
     def get_queryset(self):
-        id = self.kwargs['id']
+        id = self.request.user.id
         return Order.objects.filter(buyer=id)

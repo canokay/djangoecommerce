@@ -14,6 +14,6 @@ urlpatterns = \
         url(r'^', include(router.urls)),
         url(r'^product/$', ProductListView.as_view()),
         url(r'^product/(?P<id>\d+)/$', ProductDetailView.as_view()),
-        url(r'^card/(?P<id>\d+)/$', CardListView.as_view()),
-        url(r'^order/(?P<id>\d+)/$', OrderListView.as_view()),
+        url(r'^card/$', CardListView.as_view()),
+        url(r'^order/$', OrderListView.as_view()),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
