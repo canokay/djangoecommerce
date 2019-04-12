@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'djangoecommerce_app',
     'djangoecommerce_company',
+    'djangoecommerce_company_app',
     'djangoecommerce_customer',
     'djangoecommerce_web',
 ]
