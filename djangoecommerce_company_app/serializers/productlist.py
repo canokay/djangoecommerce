@@ -22,6 +22,5 @@ class ProductListSerializer(ModelSerializer):
                   'name',
                   'description',
                   'thumbnail',
-                  'category',
-                  'price'
+                  'category'
                 ]

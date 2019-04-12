@@ -25,12 +25,12 @@ from rest_framework.views import APIView
 from djangoecommerce import settings
 from djangoecommerce_app.models import User, City, CompanyAddress, CompanyFeature,Card,Order, Company, ProductCategory,  Product, ProductImage, ProductBrand
 
-from djangoecommerce_app.serializers.productlist import ProductListSerializer
-from djangoecommerce_app.serializers.productdetail import ProductDetailSerializer
-from djangoecommerce_app.serializers.cardlist import CardListSerializer
-from djangoecommerce_app.serializers.orderlist import OrderListSerializer
-from djangoecommerce_app.serializers.carddetail import CardDetailSerializer
-from djangoecommerce_app.serializers.orderdetail import OrderDetailSerializer
+from djangoecommerce_company_app.serializers.productlist import ProductListSerializer
+from djangoecommerce_company_app.serializers.productdetail import ProductDetailSerializer
+from djangoecommerce_company_app.serializers.cardlist import CardListSerializer
+from djangoecommerce_company_app.serializers.orderlist import OrderListSerializer
+from djangoecommerce_company_app.serializers.carddetail import CardDetailSerializer
+from djangoecommerce_company_app.serializers.orderdetail import OrderDetailSerializer
 
 
 

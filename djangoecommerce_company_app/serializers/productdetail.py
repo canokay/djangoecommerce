@@ -13,5 +13,4 @@ class ProductDetailSerializer(ModelSerializer):
                   'description',
                   'thumbnail',
                   'category',
-                  'price'
                 ]

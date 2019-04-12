@@ -3,6 +3,7 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.auth.models import Group
 from djangoecommerce_app.models import User, City, CompanyAddress, CompanyFeature, Company, ProductCategory,  Product, ProductImage, ProductBrand, ProductStar, Coupon, Card, Order, OrderProductStatus, OrderProductComment
 
+admin.site.site_header = 'Django Ecommerce Admin Panel'
 
 admin.site.register(City)
 admin.site.register(CompanyAddress)
@@ -35,9 +36,9 @@ class UserAdmin(ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(ModelAdmin):
-    list_display = ["id", "name","owner","brand"]
+    list_display = ["id", "name","owner","brand","price"]
     list_display_links = ["id","name"]
-    list_editable = ["owner","brand"]
+    list_editable = ["owner","brand","price"]
 
     class Meta:
         model = Product

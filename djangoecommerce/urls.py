@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^musteri/', include("djangoecommerce_customer.urls")),
     url(r'^sirket/', include("djangoecommerce_company.urls")),
     url(r'^api/', include("djangoecommerce_app.urls")),
+    url(r'^api/company/', include("djangoecommerce_company_app.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

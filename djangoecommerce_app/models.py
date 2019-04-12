@@ -138,6 +138,7 @@ class Product(Model):
     category = ForeignKey('djangoecommerce_app.ProductCategory', blank=True, null=True, verbose_name='Ürün Kategorisi', on_delete=models.CASCADE)
     owner = ForeignKey('djangoecommerce_app.Company', related_name='owner',blank=False, null=False, verbose_name='Ürün Sahibi', on_delete=models.CASCADE)
     brand = ForeignKey('djangoecommerce_app.ProductBrand', related_name='brand',blank=True, null=True, verbose_name='Ürün Markası', on_delete=models.CASCADE)
+    price = FloatField(validators=[MinValueValidator(1)],verbose_name='Ürün Fiyatı')
     thumbnail = ImageField(verbose_name='Resimi', upload_to='images/product/', blank=True, null=True)
 
     class Meta:
