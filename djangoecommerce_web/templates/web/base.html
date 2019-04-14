@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>{% block title %}{% endblock %}</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+   <link href="{% static 'web/css/base.css' %}" rel="stylesheet">
+   {% block header_static %}
+
+   {% endblock %}
+</head>
+
+<body>
+  <!-- Navigation -->
+    {% include 'web/components/header.html' %}
+    {% block content %}
+
+    {% endblock %}
+  <!-- Footer -->
+    {% include 'web/components/footer.html' %}
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+  {% block page_static %}
+
+  {% endblock %}
+</body>
+
+</html>
