@@ -4,7 +4,7 @@ from rest_framework.serializers import ModelSerializer
 
 
 from djangoecommerce_app.models import Product, ProductCategory
-
+from djangoecommerce_blog.models import Blog
 
 class ProductCategorySerializer(ModelSerializer):
     class Meta:
@@ -25,3 +25,36 @@ class ProductListSerializer(ModelSerializer):
                   'category',
                   'price'
                 ]
+
+class BlogListSerializer(ModelSerializer):
+    class Meta:
+        model = Blog
+        fields = ['id',
+                  'title',
+                  'thumbnail',
+                  'slug'
+                 ]
+
+class ProductDetailSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id',
+                  'name',
+                  'description',
+                  'created_at',
+                  'category',
+                  'owner',
+                  'brand',
+                  'price',
+                  'thumbnail'
+                 ]
+
+
+class BlogDetailSerializer(ModelSerializer):
+    class Meta:
+        model = Blog
+        fields = ['id',
+                  'title',
+                  'thumbnail',
+                  'slug'
+                 ]

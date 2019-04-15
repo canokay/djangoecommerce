@@ -74,9 +74,6 @@
 				<div class="col">
 					<div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
 						{% for products in product %}
-
-
-
 						<div class="product-item men">
 							<div class="product discount product_filter">
 								<div class="product_image">
@@ -138,6 +135,7 @@
 		</div>
 	</div>
 
+
 	<!-- Best Sellers -->
 
 	<div class="best_sellers">
@@ -154,14 +152,13 @@
 					<div class="product_slider_container">
 						<div class="owl-carousel owl-theme product_slider">
 
-							<!-- Slide 1 -->
 
-							{% for products in product %}
+						{% for products in product %}
 							<div class="owl-item product_slider_item">
 								<div class="product-item">
 									<div class="product discount">
 										<div class="product_image">
-											<img src="{% if products.thumbnail %}{{products.thumbnail}}{% else %}{% static 'web/images/product_base.png' %}{% endif %}" alt=""class="product-slider-thumbnail">
+											<img src="{% if products.thumbnail %}{{products.thumbnail}}{% else %}{% static 'web/images/product_base.png' %}{% endif %}" alt="" class="product-slider-thumbnail">
 										</div>
 										<div class="favorite favorite_left"></div>
 										<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
@@ -174,7 +171,11 @@
 							</div>
 							{% endfor %}
 
+
+						</div>
+
 						<!-- Slider Navigation -->
+
 						<div class="product_slider_nav_left product_slider_nav d-flex align-items-center justify-content-center flex-column">
 							<i class="fa fa-chevron-left" aria-hidden="true"></i>
 						</div>
@@ -186,6 +187,10 @@
 			</div>
 		</div>
 	</div>
+
+
+
+
 
 	<!-- Benefit -->
 
@@ -239,41 +244,22 @@
 			<div class="row">
 				<div class="col text-center">
 					<div class="section_title">
-						<h2>Latest Blogs</h2>
+						<h2>Blog Yazıları</h2>
 					</div>
 				</div>
 			</div>
 			<div class="row blogs_container">
+				{% for blogs in blog %}
 				<div class="col-lg-4 blog_item_col">
 					<div class="blog_item">
-						<div class="blog_background" style="background-image:url({% static 'web/images/blog_1.jpg' %}/)"></div>
+						<div class="blog_background" style="background-image:url({{blogs.thumbnail}})"></div>
 						<div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
-							<h4 class="blog_title">Here are the trends I see coming this fall</h4>
-							<span class="blog_meta">by admin | dec 01, 2017</span>
-							<a class="blog_more" href="#">Read more</a>
+							<h4 class="blog_title">{{blogs.title}}</h4>
+							<a class="blog_more" href="#">Devamı</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4 blog_item_col">
-					<div class="blog_item">
-						<div class="blog_background" style="background-image:url({% static 'web/images/blog_2.jpg' %})"></div>
-						<div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
-							<h4 class="blog_title">Here are the trends I see coming this fall</h4>
-							<span class="blog_meta">by admin | dec 01, 2017</span>
-							<a class="blog_more" href="#">Read more</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 blog_item_col">
-					<div class="blog_item">
-						<div class="blog_background" style="background-image:url({% static 'web/images/blog_3.jpg' %})"></div>
-						<div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
-							<h4 class="blog_title">Here are the trends I see coming this fall</h4>
-							<span class="blog_meta">by admin | dec 01, 2017</span>
-							<a class="blog_more" href="#">Read more</a>
-						</div>
-					</div>
-				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
@@ -285,15 +271,15 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
-						<h4>Newsletter</h4>
-						<p>Subscribe to our newsletter and get 20% off your first purchase</p>
+						<h4>EBülten</h4>
+						<p>EBültenimize abone olun ve ilk satın alımınızdan% 20 indirim alın</p>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<form action="post">
 						<div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
-							<input id="newsletter_email" type="email" placeholder="Your email" required="required" data-error="Valid email is required.">
-							<button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">subscribe</button>
+							<input id="newsletter_email" type="email" placeholder="E Posta Adresiniz" required="required" data-error="Geçerli bir e-posta gerekli.">
+							<button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">kaydol</button>
 						</div>
 					</form>
 				</div>

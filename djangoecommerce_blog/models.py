@@ -5,11 +5,15 @@ from django.db.models import Model,ForeignKey,CharField,DateTimeField,EmailField
 from djangoecommerce_app.models import User
 
 
-PAGE_STATUS=(
-    ('private','Özel'),
-    ('justLink','Sadece Link'),
-    ('public','Herkese Açık'),
-)
+class Hashtag(Model):
+    hashtag = CharField(max_length=120, verbose_name="Hashtag")
+
+    class Meta:
+        verbose_name = 'Hashtag'
+        verbose_name_plural = 'Hashtagler'
+
+    def __str__(self):
+        return self.hashtag
 
 
 class BlogCategory(Model):
@@ -25,23 +29,17 @@ class BlogCategory(Model):
         return self.title
 
 
-class Hashtag(Model):
-    hashtag = CharField(max_length=120, verbose_name="Hashtag")
-
-    class Meta:
-        verbose_name = 'Hashtag'
-        verbose_name_plural = 'Hashtagler'
-
-    def __str__(self):
-        return self.hashtag
-
-
 class Blog(Model):
+    PAGE_STATUS=(
+        ('private','Özel'),
+        ('justLink','Sadece Link'),
+        ('public','Herkese Açık'),
+    )
     author = ForeignKey("djangoecommerce_app.User", on_delete=models.CASCADE, verbose_name="Kullanıcı Adı")
     title = CharField(max_length=120, verbose_name="Başlık")
     slug = SlugField(unique=True, max_length=130)
     content = RichTextField(verbose_name="İçerik")
-    thumbnail = ImageField(blank=True, null=True, verbose_name="Blog Thumbnail")
+    thumbnail = ImageField(verbose_name="Blog Thumbnail", upload_to='images/blog/thumbnail/', blank=True, null=True)
     created_date = DateTimeField(auto_now=True, verbose_name="Oluşum Tarihi")
     status = CharField(max_length=15,choices=PAGE_STATUS, verbose_name="Durum")
     category = ForeignKey('djangoecommerce_blog.BlogCategory', on_delete=models.CASCADE, verbose_name='Kategori')
@@ -51,17 +49,6 @@ class Blog(Model):
         return self.title
 
     class Meta:
+        ordering = ('-created_date',)
         verbose_name = 'Blog'
         verbose_name_plural = 'Bloglar'
-
-
-class Contact(Model):
-    name = CharField(max_length=50, verbose_name="Ad Soyad")
-    email = EmailField(max_length=50, verbose_name="Mail")
-    subject = CharField(max_length=200, verbose_name="Başlık")
-    message = RichTextField(verbose_name="Mesaj")
-    created_date = DateTimeField(auto_now=True, verbose_name="Oluşum Tarihi")
-
-    class Meta:
-        verbose_name = 'İletişim'
-        verbose_name_plural = 'İletişimler'
