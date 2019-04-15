@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <title>{% block headerTitle %} {% endblock headerTitle %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="{% block siteDescription %} {% endblock siteDescription %}" />
+        <meta name="keywords" content="Can Okay, Can Okay Blog,{% block siteKeywords %} {% endblock siteKeywords %}" />
+        <meta name="author" content="Can Okay" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'blog/images/favicon.png' %}">
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700%7CPT+Serif:400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" type="text/css"  href="{% static 'blog/css/clear.css' %}" />
+        <link rel="stylesheet" type="text/css"  href="{% static 'blog/css/common.css' %}" />
+        <link rel="stylesheet" type="text/css"  href="{% static 'blog/css/font-awesome.min.css' %}" />
+        <link rel="stylesheet" type="text/css"  href="{% static 'blog/css/carouFredSel.css' %}" />
+        <link rel="stylesheet" type="text/css"  href="{% static 'blog/css/prettyPhoto.css' %}" />
+        <link rel="stylesheet" type="text/css"  href="{% static 'blog/css/sm-clean.css' %}" />
+        <link rel="stylesheet" type="text/css"  href="{% static 'blog/css/style.css' %}" />
+        {% block pageHeader %}
+
+        {% endblock pageHeader %}
+    </head>
+    <body class="{% block bodyClass %} {% endblock bodyClass %}">
+
+        <table class="doc-loader">
+            <tbody>
+                <tr>
+                    <td>
+                        <img src="{% static 'blog/images/ajax-document-loader.gif' %}" alt="Loading...">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        {% include 'blog/components/header.html' %}
+
+        {% block content %}
+
+        {% endblock content %}
+
+
+        {% include 'blog/components/footer.html' %}
+        <div class="fixed scroll-top">
+            <img src="{% static 'blog/images/back_to_top.png' %}" alt="Go Top">
+        </div>
+
+        <!--Load JavaScript-->
+        <script src="{% static 'blog/js/jquery.js' %}"></script>
+        <script src="{% static 'blog/js/particles.min.js' %}"></script>
+        <script src="{% static 'blog/js/app.js' %}"></script>
+        <script src="{% static 'blog/js/jquery.fitvids.js' %}"></script>
+        <script src="{% static 'blog/js/jquery.smartmenus.min.js' %}"></script>
+        <script src="{% static 'blog/js/isotope.pkgd.js' %}"></script>
+        <script src="{% static 'blog/js/imagesloaded.pkgd.js' %}"></script>
+        <script src="{% static 'blog/js/jquery.carouFredSel-6.0.0-packed.js' %}"></script>
+        <script src="{% static 'blog/js/jquery.mousewheel.min.js' %}"></script>
+        <script src="{% static 'blog/js/jquery.touchSwipe.min.js' %}"></script>
+        <script src="{% static 'blog/js/jquery.easing.1.3.js' %}"></script>
+        <script src="{% static 'blog/js/jquery.prettyPhoto.js' %}"></script>
+        <script src="{% static 'blog/js/jquery.nicescroll.min.js' %}"></script>
+        <script src="{% static 'blog/js/main.js' %}"></script>
+
+        {% block pageJs %}
+
+        {% endblock pageJs %}
+    </body>
+</html>

@@ -1,0 +1,15 @@
+        <nav id="header-main-menu">
+            <ul class="main-menu sm sm-clean">
+                <li>
+                    <a href="{% url 'djangoecommerce_blog:homepage' %}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'djangoecommerce_blog:blog_all' %}">Blog</a>
+                </li>
+            </ul>
+            <form role="search" class="search-form">
+                <label>
+                    <input type="search" class="search-field" placeholder="Search …" value="" name="s" title="Search for:">
+                </label>
+            </form>
+        </nav>

@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'djangoecommerce_company_app',
     'djangoecommerce_customer',
     'djangoecommerce_web',
+    'djangoecommerce_blog'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -44,7 +45,14 @@ ROOT_URLCONF = 'djangoecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'djangoecommerce_app', 'templates'),
+            os.path.join(BASE_DIR, 'djangoecommerce_blog', 'templates'),
+            os.path.join(BASE_DIR, 'djangoecommerce_company', 'templates'),
+            os.path.join(BASE_DIR, 'djangoecommerce_company_app', 'templates'),
+            os.path.join(BASE_DIR, 'djangoecommerce_customer', 'templates'),
+            os.path.join(BASE_DIR, 'djangoecommerce_web', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

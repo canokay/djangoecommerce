@@ -1684,3 +1684,11 @@ section
 {
 	color: #fe4c50;
 }
+
+
+.product-slider-thumbnail{
+	height: 221px;
+	width: 100%;
+	object-fit: cover;
+	max-width: 100%;
+}

@@ -1,0 +1,33 @@
+#blogArticle{
+  margin-top: 290px;
+}
+.single-post article
+{
+    padding: 150px 200px;
+    margin-top: 0px;
+    text-align: justify;
+}
+
+@media screen and (max-width: 1450px) {
+.single-post article
+{
+    padding-top: 80px;
+}
+}
+
+@media screen and (max-width: 1220px) {
+#blogArticle{
+margin-top: 0px;
+}
+.single-post article
+{
+  padding: 10% 0;
+  margin: 0;
+}
+}
+@media screen and (max-width: 650px) {
+.single-post article
+{
+padding-bottom: 60px;
+}
+}

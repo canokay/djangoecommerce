@@ -1,0 +1,99 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block headerTitle %}{{blog.title}} - DjangoEcommerce {% endblock headerTitle %}
+
+{% block pageHeader %}
+
+<link rel="stylesheet" type="text/css"  href="{% static 'blog/css/blog.css' %}" />
+
+{% endblock pageHeader %}
+
+
+
+{% block bodyClass %}post single-post {% endblock bodyClass %}
+
+{% block content %}
+<div id="content" class="site-content center-relative">
+
+    <div class="header-holder">
+        <div class="toggle-holder relative right">
+            <div id="toggle">
+                <div class="first-menu-line"></div>
+                <div class="second-menu-line"></div>
+                <div class="third-menu-line"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="background-image-holder" style="height:450px;">
+        <img src="{% if blog.thumbnail %}{{blog.thumbnail.url}}{% else %}{% static 'blog/demo-images/one_drop_post_image02.jpg' %}{% endif %}" alt="" style="height:1024px;object-fit: cover;">
+    </div>
+
+    <div class="single-post-wrapper content-1170 center-relative" id="blogArticle">
+        <article >
+            <h1 class="entry-title">{{blog.title}}</h1>
+            <div class="post-info center-text">
+                <div class="post-date">{{blog.created_date}}</div>
+                <div class="cat-links">
+                    <ul>
+                        <li>
+                            <a href="/category/{{blog.category.category_slug}}">{{blog.category}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="entry-content">
+                <div class="content-wrap">
+                    {{blog.content |safe}}
+
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    {% for hashtags in blog.hashtag.all %}
+                     <a href="/hashtag/{{hashtags.hashtag}}">#{{hashtags.hashtag}}</a>
+                    {%endfor%}
+                </div>
+            </div>
+            <div class="clear"></div>
+        </article>
+
+
+        <div class="about-author-holder center-relative center-text">
+            <div class="author-image block">
+                <img alt="" src="{% static 'blog/images/canokay-circle.png' %}" class="avatar photo" style="width: 110px;"></div>
+            <div class="author-nickname block">Can Okay</div>
+            <div class="author-bio block"></div>
+            <div class="author-all-posts block">
+                <a class="button" href="/blog">View all posts</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-links relative">
+        <div class="absolute logo-holder footer-logo">
+            <a href="index.html">
+                <img src="{% static 'blog/images/canokay-circle.png' %}" alt="Droppler"  style="width: 110px;"/>
+            </a>
+        </div>
+
+        <div class="nav-previous has-thumb" style="background-image:url({% static 'blog/images/1920x1080.jpg' %}); ">
+            <div class="nav-previous-content">
+                <p class="nav-previous-text">PREVIOUS STORY</p>
+                <a href="#" rel="prev">Trust in dreams for in them is hidden the gate to eternity</a>
+            </div>
+        </div>
+
+        <div class="nav-next has-thumb" style="background-image:url({% static 'blog/images/1920x1080-2.jpg' %}); ">
+            <div class="nav-next-content">
+                <p class="nav-next-text">NEXT STORY</p>
+                <a href="#" rel="next">Start by doing what’s necessary then do what’s possible</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+</div>
+
+
+
+{% endblock content %}
