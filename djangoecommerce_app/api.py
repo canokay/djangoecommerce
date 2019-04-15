@@ -34,10 +34,6 @@ from djangoecommerce_app.serializers.orderdetail import OrderDetailSerializer
 
 
 
-
-
-
-
 class ProductListView(ListAPIView):
     serializer_class = ProductListSerializer
     permission_classes = (IsAuthenticated,)
