@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'ckeditor',
     'djangoecommerce_app',
     'djangoecommerce_company',
     'djangoecommerce_company_app',
