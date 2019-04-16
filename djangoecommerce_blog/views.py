@@ -12,14 +12,9 @@ def BlogListView(request):
     return render(request, 'blog/blog/blog-list.html', context)
 
 
-def CategoryListView(request,category_slug):
-    category = BlogCategory.objects.get(category_slug=category_slug)
-    blog = Blog.objects.filter(category=category).order_by('-created_date')
-    context = {
-        "category": category,
-        "blog": blog
-    }
-    return render(request, 'blog/category.html',context)
+def CategoryListView(request):
+    
+    return render(request, 'blog/category.html')
 
 
 def HashtagListView(request,hashtag):
