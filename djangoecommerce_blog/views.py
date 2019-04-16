@@ -9,7 +9,7 @@ def BlogListView(request):
     context = {
         "blog": Blog.objects.order_by('-created_date')
     }
-    return render(request, 'blog/blog.html', context)
+    return render(request, 'blog/blog/blog-list.html', context)
 
 
 def CategoryListView(request,category_slug):
@@ -37,4 +37,4 @@ def BlogDetailView(request,slug):
     context = {
         "blog": blog
     }
-    return render(request, 'blog/blog-single.html',context)
+    return render(request, 'blog/blog-detail.html',context)
