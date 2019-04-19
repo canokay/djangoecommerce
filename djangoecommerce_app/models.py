@@ -17,7 +17,10 @@ class User(AbstractUser):
     birthday = DateField(null=True, blank=True, verbose_name='Doğum Tarihi')
     bio = TextField(blank=True, null=True, verbose_name='Biyografi')
     phone = CharField(max_length=100, null=True, blank=True, verbose_name='Telefon No')
-    is_verified = BooleanField(blank=True, default=False, verbose_name='Onaylandı')
+    link_facebook = CharField(max_length=250, null=True, blank=True, default='#', verbose_name='Facebook Linki')
+    link_instagram = CharField(max_length=250, null=True, blank=True, default='#', verbose_name='Instagram Linki')
+    link_twitter = CharField(max_length=250, null=True, blank=True, default='#', verbose_name='Twitter Linki')
+    link_web = CharField(max_length=250, null=True, blank=True, default='#', verbose_name='Website Linki')
 
     class Meta:
         verbose_name = 'Kullanıcı'
@@ -83,10 +86,6 @@ class Company(User):
     tax_number = CharField(max_length=250, null=True, blank=True, verbose_name='Vergi No')
     legal_company_title = CharField(max_length=250, null=True, blank=True, verbose_name='Yasal Şirket Ünvanı')
     iban = CharField(max_length=250, null=True, blank=True, verbose_name='IBAN')
-    link_facebook = CharField(max_length=250, null=True, blank=True, verbose_name='Facebook Linki')
-    link_instagram = CharField(max_length=250, null=True, blank=True, verbose_name='Instagram Linki')
-    link_twitter = CharField(max_length=250, null=True, blank=True, verbose_name='Twitter Linki')
-    link_web = CharField(max_length=250, null=True, blank=True, verbose_name='Website Linki')
     features = ManyToManyField('djangoecommerce_app.CompanyFeature', verbose_name='Reklamveren Şirket Özellikleri', blank=True)
 
     class Meta:
