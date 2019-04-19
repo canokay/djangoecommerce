@@ -274,3 +274,18 @@ class OrderProductComment(Model):
 
     def __str__(self):
         return self.id
+
+
+class Contact(Model):
+    name = CharField(max_length=50, verbose_name="Ad Soyad")
+    email = EmailField(max_length=50, verbose_name="Mail")
+    subject = CharField(max_length=200, verbose_name="Başlık")
+    message = TextField(blank=True, null=True, verbose_name='Mesaj')
+    created_date = DateTimeField(auto_now=True, verbose_name="Oluşum Tarihi")
+
+    class Meta:
+        verbose_name = 'İletişim'
+        verbose_name_plural = 'İletişimler'
+
+    def __str__(self):
+        return self.subject

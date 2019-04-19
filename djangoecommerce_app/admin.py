@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.contrib.auth.models import Group
-from djangoecommerce_app.models import User, City, CompanyAddress, CompanyFeature, Company, ProductCategory,  Product, ProductImage, ProductBrand, ProductStar, Coupon, Card, Order, OrderProductStatus, OrderProductComment
+from djangoecommerce_app.models import User, City, CompanyAddress, CompanyFeature, Company, ProductCategory,  Product, ProductImage, ProductBrand, ProductStar, Coupon, Card, Order, OrderProductStatus, OrderProductComment,Contact
 
 admin.site.site_header = 'Django Ecommerce Admin Panel'
 
@@ -15,6 +15,7 @@ admin.site.register(ProductStar)
 admin.site.register(Coupon)
 admin.site.register(OrderProductStatus)
 admin.site.register(OrderProductComment)
+admin.site.register(Contact)
 
 @admin.register(User)
 class UserAdmin(ModelAdmin):

@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from djangoecommerce_web.serializers.homepage import ProductListSerializer, BlogListSerializer, ProductDetailSerializer, BlogDetailSerializer
-from djangoecommerce_app.models import User, City, CompanyAddress, CompanyFeature,Card,Order, Company, ProductCategory,  Product, ProductImage, ProductBrand
+from djangoecommerce_app.models import User, City, CompanyAddress, CompanyFeature,Card,Order, Company, ProductCategory,  Product, ProductImage, ProductBrand, Contact
 from djangoecommerce_blog.models import Blog
+from djangoecommerce_web.forms import ContactForm
 
 def IndexView(request):
     context={
@@ -23,3 +24,14 @@ def BlogDetailView(request,slug):
         "blog":BlogDetailSerializer(Blog.objects.get(slug=slug), many=True).data,
     }
     return render(request, 'web/blog-single.html',context)
+
+
+def ContactView(request):
+    form = ContactForm(request.POST or None)
+    if form.is_valid():
+        Contact = form.save(commit=True)
+        return redirect("djangoecommerce_web:contact")
+    context = {
+        "form": form
+    }
+    return render(request, 'web/contact.html',context)
