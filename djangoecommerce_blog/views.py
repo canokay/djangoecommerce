@@ -2,17 +2,11 @@ from django.shortcuts import render
 from djangoecommerce_blog.models import BlogCategory
 from djangoecommerce_blog.models import Blog,Hashtag
 
-def IndexView(request):
-    context = {
-        "blog": Blog.objects.all()
-    }
-    return render(request, 'blog/index.html', context)
-
 def BlogListView(request):
     context = {
         "blog": Blog.objects.all()
     }
-    return render(request, 'blog/blog/blog-list.html', context)
+    return render(request, 'blog/index.html', context)
 
 
 def CategoryListView(request):
@@ -34,4 +28,4 @@ def BlogDetailView(request,slug):
     context = {
         "blog": Blog.objects.get(slug=slug)
     }
-    return render(request, 'blog/blog-detail.html',context)
+    return render(request, 'blog/blog/blog-detail.html',context)

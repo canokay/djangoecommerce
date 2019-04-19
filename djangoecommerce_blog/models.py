@@ -1,6 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-
+from colorfield.fields import ColorField
 from django.db.models import Model,ForeignKey,CharField,DateTimeField,EmailField,TextField,ManyToManyField,SlugField,ImageField
 from djangoecommerce_app.models import User
 
@@ -20,7 +20,8 @@ class BlogCategory(Model):
     title = CharField(max_length=120, verbose_name="Kategori")
     category_slug = SlugField(unique=True, max_length=130)
     category_tubnail = ImageField(blank=True, null=True, verbose_name="Kategori Tubnailı")
-
+    category_color = ColorField(default='#fe4c50')
+    
     class Meta:
         verbose_name = 'Blog Kategorisi'
         verbose_name_plural = 'Blog Kategorileri'
