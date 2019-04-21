@@ -1,1 +1,4 @@
 django-colorfield
+django-ckeditor
+djangorestframework==3.9.0
+django-rest-auth
