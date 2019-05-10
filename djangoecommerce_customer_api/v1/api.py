@@ -25,10 +25,12 @@ from rest_framework.views import APIView
 from djangoecommerce import settings
 from djangoecommerce_app.models import User, City, CompanyAddress, CompanyFeature,Card,Order, Company, ProductCategory,  Product, ProductImage, ProductBrand
 
-from djangoecommerce_company_app.serializers.productlist import ProductListSerializer
-from djangoecommerce_company_app.serializers.productdetail import ProductDetailSerializer
-from djangoecommerce_company_app.serializers.orderlist import OrderListSerializer
-from djangoecommerce_company_app.serializers.orderdetail import OrderDetailSerializer
+from djangoecommerce_customer_api.v1.serializers.productlist import ProductListSerializer
+from djangoecommerce_customer_api.v1.serializers.productdetail import ProductDetailSerializer
+from djangoecommerce_customer_api.v1.serializers.cardlist import CardListSerializer
+from djangoecommerce_customer_api.v1.serializers.orderlist import OrderListSerializer
+from djangoecommerce_customer_api.v1.serializers.carddetail import CardDetailSerializer
+from djangoecommerce_customer_api.v1.serializers.orderdetail import OrderDetailSerializer
 
 
 
@@ -38,8 +40,7 @@ class ProductListView(ListAPIView):
 
     def get_queryset(self):
         type = self.request.GET.get('type', None)
-        id = self.request.user.id
-        return Order.objects.filter(owner=id)
+        return Product.objects.all()
 
 
 
@@ -52,13 +53,32 @@ class ProductDetailView(ListAPIView):
         return Product.objects.filter(id=id)
 
 
+class CardListView(ListAPIView):
+    serializer_class = CardListSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        id = self.request.user.id
+        return Card.objects.filter(owner=id)
+
+
+
+class CardDetailView(ListAPIView):
+    serializer_class = CardDetailSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Card.objects.filter(id=id)
+
+
 class OrderListView(ListAPIView):
     serializer_class = OrderListSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         id = self.request.user.id
-        return Order.objects.filter(owner=id)
+        return Order.objects.filter(buyer=id)
 
 
 class OrderDetailView(ListAPIView):

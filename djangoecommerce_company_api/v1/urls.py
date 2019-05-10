@@ -4,10 +4,10 @@ from django.urls import include
 from rest_framework import routers
 
 from djangoecommerce import settings
-from djangoecommerce_company_app.api import ProductListView, ProductDetailView, OrderListView, OrderDetailView
+from djangoecommerce_company_api.v1.api import ProductListView, ProductDetailView, OrderListView, OrderDetailView
 
 
-app_name = 'djangoecommerce_company_app'
+app_name = 'djangoecommerce_company_api'
 router = routers.DefaultRouter()
 
 urlpatterns = \

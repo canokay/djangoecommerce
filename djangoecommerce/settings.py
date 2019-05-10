@@ -26,11 +26,12 @@ INSTALLED_APPS = [
     'ckeditor',
     'colorfield',
     'djangoecommerce_app',
+    'djangoecommerce_blog',
     'djangoecommerce_company',
-    'djangoecommerce_company_app',
+    'djangoecommerce_company_api',
     'djangoecommerce_customer',
+    'djangoecommerce_customer_api',
     'djangoecommerce_web',
-    'djangoecommerce_blog'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

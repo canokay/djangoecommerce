@@ -5,11 +5,10 @@ from rest_framework import routers
 
 from djangoecommerce import settings
 
-app_name = 'djangoecommerce_app'
+app_name = 'djangoecommerce_customer_api'
 router = routers.DefaultRouter()
 
 urlpatterns = \
     [
-        url(r'^company/', include('djangoecommerce_company_api.urls')),
-        url(r'^customer/', include('djangoecommerce_customer_api.urls')),
+        url(r'^v1/', include('djangoecommerce_customer_api.v1.urls')),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
